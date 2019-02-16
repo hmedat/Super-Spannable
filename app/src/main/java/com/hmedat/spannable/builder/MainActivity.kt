@@ -7,7 +7,7 @@ import com.hmedat.spannable.builder.lib.Spannable
 import kotlinx.android.synthetic.main.activity_main.*
 import android.graphics.BlurMaskFilter
 import android.text.style.MaskFilterSpan
-import android.graphics.EmbossMaskFilter
+import android.text.style.ImageSpan
 
 
 class MainActivity : AppCompatActivity() {
@@ -20,8 +20,17 @@ class MainActivity : AppCompatActivity() {
 
         tvText.movementMethod = LinkMovementMethod.getInstance();
         tvText.text = Spannable(this)
-            .appendText("Save sdkfjhsdkf sdfjhsdkfh sdfkjhsdkfj sdkjfhskdj sdfjhsdkfjh sdjhfksdjhf kjhsdfkjhsdfj sjdhfksjdhf") {
-                leadingMarginSpanStandard(40, 90)
+            .appendText("Click on this") {
+                backgroundColor(R.color.colorAccent)
+            }
+            .space()
+            .appendIcon(R.drawable.ic_cancel_deep_orange_600_24dp) {
+                size(R.dimen.w_24dp)
+                verticalAlignment(ImageSpan.ALIGN_BOTTOM)
+            }
+            .space()
+            .appendText("Then Watch") {
+                backgroundColor(R.color.colorAccent)
             }
             .getSpannable()
 

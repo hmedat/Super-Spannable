@@ -86,7 +86,7 @@ class Spannable(private val context: Context) {
         drawable.apply {
             setBounds(0, 0, image.size, image.size)
         }
-        return ImageSpan(drawable)
+        return ImageSpan(drawable, image.verticalAlignment)
     }
 
     fun getSpannable(): SpannableStringBuilder {

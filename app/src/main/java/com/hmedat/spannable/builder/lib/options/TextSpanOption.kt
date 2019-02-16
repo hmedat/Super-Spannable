@@ -5,14 +5,11 @@ import android.graphics.BlurMaskFilter
 import android.graphics.Typeface
 import android.support.annotation.ColorRes
 import android.support.annotation.DimenRes
-import android.support.annotation.FontRes
 import android.support.v4.content.ContextCompat
-import android.support.v4.content.res.ResourcesCompat
 import android.text.SpannableStringBuilder
 import android.text.Spanned
 import android.text.style.*
 import android.view.View
-import com.hmedat.spannable.builder.lib.spans.CustomTypefaceSpan
 
 class TextSpanOption(
     private val context: Context,
@@ -21,8 +18,9 @@ class TextSpanOption(
     private val currentText: String
 ) {
 
-    fun textSize(@DimenRes textSizeRes: Int) =
-        setSpan(AbsoluteSizeSpan(context.resources.getDimensionPixelSize(textSizeRes)))
+    fun textSize(@DimenRes textSizeRes: Int) = setSpan(AbsoluteSizeSpan(getDimen(textSizeRes)))
+
+    private fun getDimen(textSizeRes: Int) = context.resources.getDimensionPixelSize(textSizeRes)
 
     fun bold() = setSpan(StyleSpan(Typeface.BOLD))
 
@@ -50,9 +48,10 @@ class TextSpanOption(
     fun blurMaskFilter(radius: Float, style: BlurMaskFilter.Blur) =
         setSpan(MaskFilterSpan(BlurMaskFilter(radius, style)))
 
-    fun leadingMarginSpanStandard(first: Int, rest: Int) = setSpan(LeadingMarginSpan.Standard(first, rest))
+    fun leadingMarginSpanStandard(@DimenRes firstRes: Int, @DimenRes restRes: Int) =
+        setSpan(LeadingMarginSpan.Standard(getDimen(firstRes), getDimen(restRes)))
 
-    fun leadingMarginSpanStandard(every: Int) = setSpan(LeadingMarginSpan.Standard(every))
+    fun leadingMarginSpanStandard(@DimenRes everyRes: Int) = setSpan(LeadingMarginSpan.Standard(getDimen(everyRes)))
 
     private fun getColor(textColorRes: Int) = ContextCompat.getColor(context, textColorRes)
 
