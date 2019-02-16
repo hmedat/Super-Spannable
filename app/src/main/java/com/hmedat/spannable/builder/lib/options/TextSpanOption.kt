@@ -1,6 +1,7 @@
 package com.hmedat.spannable.builder.lib.options
 
 import android.content.Context
+import android.graphics.BlurMaskFilter
 import android.graphics.Typeface
 import android.support.annotation.ColorRes
 import android.support.annotation.DimenRes
@@ -25,10 +26,10 @@ class TextSpanOption(
 
     fun bold() = setSpan(StyleSpan(Typeface.BOLD))
 
- /*   private fun setTypeFaceSpan(@FontRes id: Int) {
-        val typeface = ResourcesCompat.getFont(context, id) ?: return
-        setSpan(CustomTypefaceSpan(typeface))
-    }*/
+    /*   private fun setTypeFaceSpan(@FontRes id: Int) {
+           val typeface = ResourcesCompat.getFont(context, id) ?: return
+           setSpan(CustomTypefaceSpan(typeface))
+       }*/
 
     fun italic() = setSpan(StyleSpan(Typeface.ITALIC))
 
@@ -39,6 +40,19 @@ class TextSpanOption(
     fun textColor(@ColorRes textColorRes: Int) = setSpan(ForegroundColorSpan(getColor(textColorRes)))
 
     fun backgroundColor(@ColorRes textColorRes: Int) = setSpan(BackgroundColorSpan(getColor(textColorRes)))
+
+    fun quote(@ColorRes textColorRes: Int) = setSpan(QuoteSpan(getColor(textColorRes)))
+
+    fun scaleX(proportion: Float) = setSpan(ScaleXSpan(proportion))
+
+    fun relativeSize(proportion: Float) = setSpan(RelativeSizeSpan(proportion))
+
+    fun blurMaskFilter(radius: Float, style: BlurMaskFilter.Blur) =
+        setSpan(MaskFilterSpan(BlurMaskFilter(radius, style)))
+
+    fun leadingMarginSpanStandard(first: Int, rest: Int) = setSpan(LeadingMarginSpan.Standard(first, rest))
+
+    fun leadingMarginSpanStandard(every: Int) = setSpan(LeadingMarginSpan.Standard(every))
 
     private fun getColor(textColorRes: Int) = ContextCompat.getColor(context, textColorRes)
 

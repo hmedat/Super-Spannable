@@ -3,10 +3,11 @@ package com.hmedat.spannable.builder
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.text.method.LinkMovementMethod
-import android.view.View
-import android.widget.Toast
 import com.hmedat.spannable.builder.lib.Spannable
 import kotlinx.android.synthetic.main.activity_main.*
+import android.graphics.BlurMaskFilter
+import android.text.style.MaskFilterSpan
+import android.graphics.EmbossMaskFilter
 
 
 class MainActivity : AppCompatActivity() {
@@ -15,15 +16,14 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-      /*  tvText.movementMethod = LinkMovementMethod.getInstance(); // enable clicking on url span
+        val blurMaskFilterSpan = MaskFilterSpan(BlurMaskFilter(3f, BlurMaskFilter.Blur.OUTER))
+
+        tvText.movementMethod = LinkMovementMethod.getInstance();
         tvText.text = Spannable(this)
-            .appendText("Open this ")
-            .appendText("Link") {
-                onClick(View.OnClickListener {
-                    Toast.makeText(this@MainActivity, "sdfsdf", Toast.LENGTH_SHORT).show()
-                })
+            .appendText("Save sdkfjhsdkf sdfjhsdkfh sdfkjhsdkfj sdkjfhskdj sdfjhsdkfjh sdjhfksdjhf kjhsdfkjhsdfj sjdhfksjdhf") {
+                leadingMarginSpanStandard(40, 90)
             }
-            .getSpannable()*/
+            .getSpannable()
 
 
     }

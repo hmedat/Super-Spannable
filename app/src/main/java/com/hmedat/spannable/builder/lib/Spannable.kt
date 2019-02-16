@@ -10,6 +10,8 @@ import android.support.v4.graphics.drawable.DrawableCompat
 import android.support.v7.content.res.AppCompatResources
 import android.text.SpannableStringBuilder
 import android.text.style.ImageSpan
+import android.text.style.SubscriptSpan
+import android.text.style.SuperscriptSpan
 import android.text.style.URLSpan
 import com.hmedat.spannable.builder.lib.options.ImageSpanOption
 import com.hmedat.spannable.builder.lib.options.TextSpanOption
@@ -27,15 +29,30 @@ class Spannable(private val context: Context) {
         }
         val length = builder.length
         builder.append(text)
-        options?.let {
-            TextSpanOption(context, builder, length, text).apply(it)
+        options?.let { TextSpanOption(context, builder, length, text).apply(it) }
+        return this
+    }
+
+    fun appendUrl(text: String, url: String, options: (TextSpanOption.() -> Unit)? = null): Spannable {
+        appendText(text) {
+            setSpan(URLSpan(url))
+            options?.let { this.it() }
         }
         return this
     }
 
-    fun appendUrl(text: String, url: String): Spannable {
+    fun appendSuperscript(text: String, options: (TextSpanOption.() -> Unit)? = null): Spannable {
         appendText(text) {
-            setSpan(URLSpan(url))
+            setSpan(SuperscriptSpan())
+            options?.let { this.it() }
+        }
+        return this
+    }
+
+    fun appendSubscript(text: String, options: (TextSpanOption.() -> Unit)? = null): Spannable {
+        appendText(text) {
+            setSpan(SubscriptSpan())
+            options?.let { this.it() }
         }
         return this
     }
