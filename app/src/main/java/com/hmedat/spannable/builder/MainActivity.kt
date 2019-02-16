@@ -16,12 +16,10 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val blurMaskFilterSpan = MaskFilterSpan(BlurMaskFilter(3f, BlurMaskFilter.Blur.OUTER))
-
         tvText.movementMethod = LinkMovementMethod.getInstance();
         tvText.text = Spannable(this)
+            .appendBullet(R.dimen.w_18dp, R.color.colorPrimary, 10)
             .appendText("Click on this") {
-                backgroundColor(R.color.colorAccent)
             }
             .space()
             .appendIcon(R.drawable.ic_cancel_deep_orange_600_24dp) {
@@ -29,7 +27,7 @@ class MainActivity : AppCompatActivity() {
                 verticalAlignment(ImageSpan.ALIGN_BOTTOM)
             }
             .space()
-            .appendText("Then Watch") {
+            .appendText("ljl ") {
                 backgroundColor(R.color.colorAccent)
             }
             .getSpannable()

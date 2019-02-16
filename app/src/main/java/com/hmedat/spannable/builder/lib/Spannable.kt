@@ -1,20 +1,19 @@
 package com.hmedat.spannable.builder.lib
 
 import android.content.Context
+import android.content.ContextWrapper
 import android.graphics.PorterDuff
 import android.graphics.drawable.Drawable
-import android.support.annotation.ColorInt
-import android.support.annotation.DrawableRes
-import android.support.annotation.StringRes
+import android.support.annotation.*
+import android.support.annotation.IntRange
+import android.support.v4.content.ContextCompat
 import android.support.v4.graphics.drawable.DrawableCompat
 import android.support.v7.content.res.AppCompatResources
 import android.text.SpannableStringBuilder
-import android.text.style.ImageSpan
-import android.text.style.SubscriptSpan
-import android.text.style.SuperscriptSpan
-import android.text.style.URLSpan
+import android.text.style.*
 import com.hmedat.spannable.builder.lib.options.ImageSpanOption
 import com.hmedat.spannable.builder.lib.options.TextSpanOption
+import com.hmedat.spannable.builder.lib.spans.CustomBulletSpan
 
 class Spannable(private val context: Context) {
     private val builder = SpannableStringBuilder()
@@ -24,9 +23,6 @@ class Spannable(private val context: Context) {
     }
 
     fun appendText(text: String, options: (TextSpanOption.() -> Unit)? = null): Spannable {
-        if (text.isEmpty()) {
-            return this
-        }
         val length = builder.length
         builder.append(text)
         options?.let { TextSpanOption(context, builder, length, text).apply(it) }
@@ -53,6 +49,21 @@ class Spannable(private val context: Context) {
         appendText(text) {
             setSpan(SubscriptSpan())
             options?.let { this.it() }
+        }
+        return this
+    }
+
+
+    fun appendBullet(
+        @DimenRes gapWidthRes: Int,
+        @ColorRes colorRes: Int,
+        @IntRange(from = 0) bulletRadius: Int
+    ): Spannable {
+        val emptyText = ""
+        appendText(emptyText) {
+            val gapWidth = context.resources.getDimensionPixelSize(gapWidthRes)
+            val color = ContextCompat.getColor(context, colorRes)
+            setSpan(CustomBulletSpan(bulletRadius, gapWidth, color))
         }
         return this
     }
