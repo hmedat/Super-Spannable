@@ -10,6 +10,7 @@ import android.text.SpannableStringBuilder
 import android.text.Spanned
 import android.text.style.*
 import android.view.View
+import com.hmedat.spannable.builder.lib.spans.ClickableSpanNoUnderline
 
 class TextSpanOption(
     private val context: Context,
@@ -55,11 +56,17 @@ class TextSpanOption(
 
     private fun getColor(textColorRes: Int) = ContextCompat.getColor(context, textColorRes)
 
-    fun onClick(onClickListener: View.OnClickListener) = setSpan(object : ClickableSpan() {
-        override fun onClick(widget: View) {
-            onClickListener.onClick(widget)
+    fun onClick(onClickListener: View.OnClickListener) {
+        onClick(ClickableSpanNoUnderline.NO_COLOR, onClickListener)
+    }
+
+    fun onClick(@ColorRes textColorRes: Int = ClickableSpanNoUnderline.NO_COLOR, onClickListener: View.OnClickListener) {
+        if (textColorRes == ClickableSpanNoUnderline.NO_COLOR) {
+            setSpan(ClickableSpanNoUnderline(ClickableSpanNoUnderline.NO_COLOR, onClickListener))
+        } else {
+            setSpan(ClickableSpanNoUnderline(getColor(textColorRes), onClickListener))
         }
-    })
+    }
 
     fun setSpan(any: Any) {
         val index = builderLength

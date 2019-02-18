@@ -5,9 +5,9 @@ import android.os.Bundle
 import android.text.method.LinkMovementMethod
 import com.hmedat.spannable.builder.lib.Spannable
 import kotlinx.android.synthetic.main.activity_main.*
-import android.graphics.BlurMaskFilter
-import android.text.style.MaskFilterSpan
 import android.text.style.ImageSpan
+import android.view.View
+import android.widget.Toast
 
 
 class MainActivity : AppCompatActivity() {
@@ -20,6 +20,10 @@ class MainActivity : AppCompatActivity() {
         tvText.text = Spannable(this)
             .appendBullet(R.dimen.w_18dp, R.color.colorPrimary, 10)
             .appendText("Click on this") {
+                onClick(R.color.colorPrimary, View.OnClickListener {
+                    Toast.makeText(this@MainActivity, "1", Toast.LENGTH_SHORT).show()
+                })
+                underline()
             }
             .space()
             .appendIcon(R.drawable.ic_cancel_deep_orange_600_24dp) {
@@ -28,7 +32,11 @@ class MainActivity : AppCompatActivity() {
             }
             .space()
             .appendText("ljl ") {
-                backgroundColor(R.color.colorAccent)
+                textColor(R.color.colorPrimary)
+                onClick(View.OnClickListener {
+                    Toast.makeText(this@MainActivity, "2", Toast.LENGTH_SHORT).show()
+
+                })
             }
             .getSpannable()
 
